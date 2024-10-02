@@ -13,8 +13,18 @@ const contactContent = "You can contact me by my Email";
 const app = express();
 
 mongoose.set("strictQuery",true);
-mongoose.connect("mongodb://127.0.0.1:27017/blogDB");
-
+const db="mongodb+srv://21je0110:21je0110@cluster0.dltlu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const connectDB = async () => {
+  try {
+    await mongoose.connect(db, { useNewUrlParser: true });
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.log(err.message);
+    //exit process with failure
+    process.exit(1);
+  }
+};
+connectDB();
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
